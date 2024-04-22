@@ -4,4 +4,4 @@ for_ui
 
 #### License
 
-mit
+mit# easy_ui

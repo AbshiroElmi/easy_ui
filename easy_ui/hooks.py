@@ -10,6 +10,9 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
+app_include_js =  ["easy.bundle.js"]
+app_include_css = "easy.bundle.css"
+
 # app_include_css = "/assets/easy_ui/css/easy_ui.css"
 # app_include_js = "/assets/easy_ui/js/easy_ui.js"
 
@@ -159,6 +162,9 @@ app_license = "mit"
 # Overriding Methods
 # ------------------------------
 #
+override_whitelisted_methods = {
+	"frappe.core.doctype.user.user.switch_theme": "easy_ui.overrides.user.user.switch_theme"
+}
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "easy_ui.event.get_events"
 # }
