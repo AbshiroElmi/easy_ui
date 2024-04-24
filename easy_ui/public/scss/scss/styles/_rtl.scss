@@ -1,0 +1,7 @@
+@use "./mixins";
+
+.layout-side-section .nav-group-arrow {
+  @include mixins.rtl {
+    transform: rotate(180deg);
+  }
+}
