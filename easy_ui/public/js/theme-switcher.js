@@ -29,7 +29,7 @@ frappe.ui.ThemeSwitcher = class CustomThemeSwitcher extends frappe.ui.ThemeSwitc
                     info: "Easy Ui"
                 }
 			];
-
+		
 			resolve(this.themes);
 		});
 	}
