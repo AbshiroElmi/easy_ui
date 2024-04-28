@@ -1,8 +1,0 @@
-@use "../../../../styles/variables/template" as variables;
-
-%default-layout-side-section-floating-navbar-and-sticky-elevated-navbar-scrolled {
-  // If navbar is contained => Squeeze navbar content on scroll
-  @if variables.$layout-side-section-navbar-is-contained {
-    padding-inline: 1.5rem;
-  }
-}
