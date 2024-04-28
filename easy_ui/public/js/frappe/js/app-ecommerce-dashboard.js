@@ -243,9 +243,9 @@
           show: false
         }
       },
-      tooltip: {
-        enabled: false
-      },
+      // tooltip: {
+      //   enabled: false
+      // },
       markers: {
         size: 3.5,
         fillColor: config.colors.info,

@@ -93,7 +93,7 @@
           colors: headingColor,
           useSeriesColors: false
         },
-        offsetY: 10
+        // offsetY: 10
       },
       grid: {
         strokeDashArray: 8
@@ -360,7 +360,7 @@ $(function () {
           targets: 1,
           orderable: false,
           searchable: false,
-          checkboxes: true,
+          // checkboxes: true,
           responsivePriority: 3,
           render: function () {
             return '<input type="checkbox" class="dt-checkboxes form-check-input">';

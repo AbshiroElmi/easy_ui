@@ -1250,7 +1250,7 @@
           radius: 12
         },
         height: 40,
-        offsetY: 0,
+        // offsetY: 0,
         itemMargin: {
           horizontal: 10,
           vertical: 0

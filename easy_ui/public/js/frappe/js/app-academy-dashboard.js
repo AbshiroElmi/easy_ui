@@ -329,7 +329,7 @@
           targets: 1,
           orderable: false,
           searchable: false,
-          checkboxes: true,
+          // checkboxes: true,
           render: function () {
             return '<input type="checkbox" class="dt-checkboxes form-check-input">';
           },
