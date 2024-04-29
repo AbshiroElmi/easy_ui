@@ -12090,7 +12090,7 @@
   }
   console.log("Element with ID 'sidebar' not found");
 
-  // frappe-html:/home/liban/frappe-bench/apps/easy_ui/easy_ui/public/js/frappe/ui/toolbar/navbar.html
+  // frappe-html:/home/abshiro/Documents/frappe-bench/apps/easy_ui/easy_ui/public/js/frappe/ui/toolbar/navbar.html
   frappe.templates["navbar"] = `
 <div class="container  " style="margin-bottom: 1%; margin-left: 15% ; padding-top: 1%;  ">
 	<!-- <div class="col-lg-2 layout-side-section">Hello world</div> -->
@@ -12404,11 +12404,11 @@
 </div> -->
 `;
 
-  // frappe-html:/home/liban/frappe-bench/apps/easy_ui/easy_ui/public/js/frappe/ui/page.html
+  // frappe-html:/home/abshiro/Documents/frappe-bench/apps/easy_ui/easy_ui/public/js/frappe/ui/page.html
   frappe.templates["page"] = `
 <div class="col-lg-2 layout-side-section fixed-top layout-vertical-nav "></div>
 
-<div class="container page-body  " style=" padding-top: 1%; margin-right: 7%; ">
+<div class="container page-body  " style=" padding-top: 1%; ">
 
 	<div class="page-toolbar hide">
 		
@@ -13225,7 +13225,7 @@
     }
   };
 
-  // frappe-html:/home/liban/frappe-bench/apps/easy_ui/easy_ui/public/js/frappe/ui/toolbar/search.html
+  // frappe-html:/home/abshiro/Documents/frappe-bench/apps/easy_ui/easy_ui/public/js/frappe/ui/toolbar/search.html
   frappe.templates["search"] = `<div class="search-results flex">
 	<div class="col-md-3 col-sm-3 hidden-xs layout-nav-type-vertical layout-vertical-nav">
 		<ul class="overlay-sidebar list-unstyled search-sidebar"></ul>
@@ -41265,4 +41265,4 @@
 //! TODO: Update Event label and guest code to JS once select removes jQuery dependency
 //!YOUR_MAPBOX_ACCESS_TOKEN_HERE!
 //!if there is no Customizer then use default style as light
-//# sourceMappingURL=easy.bundle.ZPZO7U4U.js.map
+//# sourceMappingURL=easy.bundle.JBPVBTOM.js.map
