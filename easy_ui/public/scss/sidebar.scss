@@ -2,7 +2,7 @@
 
   .standard-sidebar-label {
     span {
-      color: white;
+      color: #000;
     }
   }
 .sidebar-item-label{
@@ -17,39 +17,25 @@ overflow:visible;
   }
   
 
-  .page-head-content {
-    margin-left: -30%;
-  }
-
+  // .page-head-content {
+  //   margin-left: -30%;
+  // }
+  // .container{
+  //   max-width: 1024px !important;
+  //   margin-block: auto !important;
+  // }
   .layout-side-section {
-    background-color: #112f4f;
-    //  margin-left: -29%;
-    height: 100%;
+    background-color: #fff;
     overflow-y: auto;
-    scrollbar-color: var(--gray-200) transparent;
-
+    top: 0;
+    left: 0;
+    height: 100% !important;
+    width: 12% !important;
     position: fixed;
     z-index: 1500;
-    display: flex;
-    flex-direction: column;
-    block-size: 100%;
-    inline-size: 260px;
-    left: 1rem;
-    transition: transform .25s ease-in-out, inline-size .25s ease-in-out, box-shadow .25s ease-in-out;
-    will-change: transform, inline-size;
-    // background-color: #112f4f;
-    // border-right:1px solid #e5e5e5;
-    // position:absolute;
-    // top:0;
-    // bottom:0;
-    // height:100%;
-    // left:0;
-    // width:50px;
-    // overflow:hidden;
-    // -webkit-transition:width .05s linear;
-    // transition:width .05s linear;
-    // -webkit-transform:translateZ(0) scale(1,1);
-    // z-index:1000;
+    
+   
+   
     .standard-sidebar-section {
       // overflow-y: scroll;
       // height: 80vh;

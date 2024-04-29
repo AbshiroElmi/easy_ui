@@ -1,6 +1,5 @@
 // Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and Contributors
 // MIT License. See license.txt
-
 // page container
 frappe.provide("frappe.pages");
 frappe.provide("frappe.views");
@@ -28,7 +27,7 @@ frappe.views.Container = class Container {
 		});
 	}
 	add_page(label) {
-		var page = $('<div class="content page-container layout-content-wrapper {"></div>')
+		var page = $('<div style="background-color: #F6F5F2;" class="content page-container layout-content-wrapper d-flex  {"></div>')
 			.attr("id", "page-" + label)
 			.attr("data-page-route", label)
 			.hide()
