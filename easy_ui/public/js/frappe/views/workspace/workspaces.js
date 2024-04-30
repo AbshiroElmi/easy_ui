@@ -56,9 +56,9 @@ frappe.views.Workspace = class Workspace {
 			<div class="list-sidebar overlay-sidebar hidden-xs hidden-sm">
 				<div class="desk-sidebar list-unstyled sidebar-menu"></div>
 			</div>
-		`).appendTo(this.wrapper.find(".layout-side-section"));
+		`).appendTo($("#layout-menu").find(".layout-side-section"));
 		this.sidebar = list_sidebar.find(".desk-sidebar");
-		this.body = this.wrapper.find(".layout-main-section");
+		this.body = $("#layout-menu").find(".layout-main-section");
 	}
 
 	async setup_pages(reload) {

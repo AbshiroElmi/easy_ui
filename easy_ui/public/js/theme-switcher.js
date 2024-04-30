@@ -24,8 +24,8 @@ frappe.ui.ThemeSwitcher = class CustomThemeSwitcher extends frappe.ui.ThemeSwitc
 					info:"Uses system's theme to switch between light and dark mode",
 				},
                 {
-                    name:"easy",
-                    label: "Easy",
+                    name:"easytouch",
+                    label: "EasyTouch",
                     info: "Easy Ui"
                 }
 			];
