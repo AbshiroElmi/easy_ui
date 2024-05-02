@@ -120,12 +120,13 @@ frappe.ui.Page = class Page {
 		if (this.icon) this.get_main_icon(this.icon);
 
 		this.body = this.main = this.wrapper.find(".layout-main-section");
+
 		this.container = this.wrapper.find(".page-body");
+		console.log("container : ",this.container);
 		this.sidebar = $("#layout-menu").find(".layout-side-section");
-	
 		this.footer = this.wrapper.find(".layout-footer");
 		this.indicator = this.wrapper.find(".indicator-pill");
-
+		
 		this.page_actions = this.wrapper.find(".page-actions");
 
 		this.btn_primary = this.page_actions.find(".primary-action");
@@ -184,11 +185,14 @@ frappe.ui.Page = class Page {
 	}
 
 	setup_sidebar_toggle() {
+
 		let sidebar_toggle = $(".page-head").find(".sidebar-toggle-btn");
-		let sidebar_wrapper = $("#layout-menu").find(".layout-side-section");
+		let sidebar_wrapper = $("#layout-menu").find(".layout-side-section1");
 		if (this.disable_sidebar_toggle || !sidebar_wrapper.length) {
 			sidebar_toggle.last().remove();
-		} else {
+		} 
+		else {
+
 			if (!frappe.is_mobile()) {
 				sidebar_toggle.attr("title", __("Toggle Sidebar"));
 			}
@@ -197,20 +201,31 @@ frappe.ui.Page = class Page {
 				delay: { show: 600, hide: 100 },
 				trigger: "hover",
 			});
-			sidebar_toggle.click(() => {
+
+			let x=sidebar_toggle.click(() => {
+
 				if (frappe.utils.is_xs() || frappe.utils.is_sm()) {
 					this.setup_overlay_sidebar();
-				} else {
+
+				} 
+				else {
+
 					sidebar_wrapper.toggle();
 				}
+				
+
 				$(document.body).trigger("toggleSidebar");
+				console.log("x waa : ",x)
+
 				this.update_sidebar_icon();
 			});
+			console.log(x)
+
 		}
 	}
 
 	setup_overlay_sidebar() {
-		this.sidebar.find(".close-sidebar").remove();
+		let x=this.sidebar.find(".close-sidebar").remove();
 		let overlay_sidebar = this.sidebar.find(".overlay-sidebar").addClass("opened");
 		$('<div class="close-sidebar">').hide().appendTo(this.sidebar).fadeIn();
 		let scroll_container = $("html").css("overflow-y", "hidden");

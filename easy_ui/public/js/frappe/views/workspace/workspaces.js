@@ -1,6 +1,5 @@
 import EditorJS from "@editorjs/editorjs";
 import Undo from "editorjs-undo";
-alert("haa")
 frappe.standard_pages["Workspaces"] = function () {
 	var wrapper = frappe.container.add_page("Workspaces");
 
@@ -54,12 +53,13 @@ frappe.views.Workspace = class Workspace {
 	prepare_container() {
 		let list_sidebar = $(`
 			<div class="list-sidebar overlay-sidebar hidden-xs hidden-sm">
-				<div class="desk-sidebar list-unstyled sidebar-menu"></div>
+					<div class="menu-vertical"></div>
 			</div>
-		`).appendTo($("#layout-menu").find(".layout-side-section"));
-		this.sidebar = list_sidebar.find(".desk-sidebar");
-		this.body = $("#layout-menu").find(".layout-main-section");
+		`).appendTo($("#layout-menu").find(".menu-inner"));
+		this.sidebar = list_sidebar.find(".menu-vertical");
+		this.body = this.wrapper.find(".layout-main-section");
 	}
+
 
 	async setup_pages(reload) {
 		!this.discard && this.create_page_skeleton();
@@ -94,39 +94,18 @@ frappe.views.Workspace = class Workspace {
 	}
 
 	sidebar_item_container(item) {
-		item.indicator_color =
-			item.indicator_color || this.indicator_colors[Math.floor(Math.random() * 12)];
-
+		item.indicator_color =item.indicator_color || this.indicator_colors[Math.floor(Math.random() * 12)];
 		return $(`
-			<div
-				class="sidebar-item-container ${item.is_editable ? "is-draggable" : ""}"
-				item-parent="${item.parent_page}"
-				item-name="${item.title}"
-				item-public="${item.public || 0}"
-				item-is-hidden="${item.is_hidden || 0}"
-			>
-				<div class="desk-sidebar-item standard-sidebar-item ${item.selected ? "selected" : ""}">
-					<a
-						href="/app/${
-							item.public
-								? frappe.router.slug(item.title)
-								: "private/" + frappe.router.slug(item.title)
-						}"
-						class="item-anchor ${item.is_editable ? "" : "block-click"}" title="${__(item.title)}"
-					>
-						<span class="sidebar-item-icon" item-icon=${item.icon || "folder-normal"}>
-							${
-								item.public
-									? frappe.utils.icon(item.icon || "folder-normal", "md")
-									: `<span class="indicator ${item.indicator_color}"></span>`
-							}
-						</span>
-						<span class="sidebar-item-label">${__(item.title)}<span>
-					</a>
-					<div class="sidebar-item-control"></div>
-				</div>
-				<div class="sidebar-child-item nested-container"></div>
-			</div>
+		
+			<li class="menu-item ${item.selected ? 'active' : ''}">
+				<a href="/app/${
+					item.public
+						? frappe.router.slug(item.title)
+						: "private/" + frappe.router.slug(item.title)
+				}" class="menu-link">
+				<div data-">${item.title}</div>
+				</a>
+			</li>
 		`);
 	}
 
@@ -158,17 +137,39 @@ frappe.views.Workspace = class Workspace {
 
 	build_sidebar_section(title, root_pages) {
 		let sidebar_section = $(
-			`<div class="standard-sidebar-section nested-container" data-title="${title}"></div>`
+			`       <li class="menu-item active open"></li>
+			
+			`
 		);
 
-		let $title = $(`<button class="btn-reset standard-sidebar-label">
-			<span>${frappe.utils.icon("es-line-down", "xs")}</span>
-			<span class="section-title">${__(title)}<span>
-		</div>`).appendTo(sidebar_section);
+		let $title = $(`
+		<li class="menu-item active open">
+		<a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons ti ti-smart-home"></i>
+          <div data-i18n="${title}">${title}</div>
+          <div class="badge bg-primary rounded-pill ms-auto">${root_pages.length}</div>
+        </a>
+		<ul class="menu-sub">
+		
+			
+		</ul>
+		</li>
+		
+		
+		`).appendTo(sidebar_section);
 		$title.attr({
-			"aria-label": __("{0}: {1}", [__("Toggle Section"), __(title)]),
+			"aria-label": __("{0}: {1}", [__("menu-link menu-toggle"), __(title)]),
 			"aria-expanded": "true",
 		});
+		let $menuSub = $title.find(".menu-sub");
+		for (let key in root_pages) {
+			if (root_pages.hasOwnProperty(key)) {
+				let item = root_pages[key];
+				let $li = this.sidebar_item_container(item);
+				$menuSub.append($li);
+			}
+		}
+	
 		this.prepare_sidebar(root_pages, sidebar_section, this.sidebar);
 
 		$title.on("click", (e) => {
@@ -177,7 +178,7 @@ frappe.views.Workspace = class Workspace {
 			const isCollapsed = href === "#es-line-down";
 			let icon = isCollapsed ? "#es-line-right-chevron" : "#es-line-down";
 			$e.find("span use").attr("href", icon);
-			$e.parent().find(".sidebar-item-container").toggleClass("hidden");
+			$e.parent().find(".menu-link menu-toggle").toggleClass("hidden");
 			$e.attr("aria-expanded", String(!isCollapsed));
 		});
 
@@ -226,7 +227,7 @@ frappe.views.Workspace = class Workspace {
 			this.prepare_sidebar(child_items, child_container, $item_container);
 		}
 
-		$item_container.appendTo(container);
+		// $item_container.appendTo(container);
 		this.sidebar_items[item.public ? "public" : "private"][item.title] = $item_container;
 
 		if ($item_container.parent().hasClass("hidden") && is_current_page) {
@@ -378,6 +379,7 @@ frappe.views.Workspace = class Workspace {
 
 	async show_page(page) {
 		if (!this.body.find("#editorjs")[0]) {
+
 			this.$page = $(`
 				<div id="editorjs" class="desk-page page-main-content"></div>
 			`).appendTo(this.body);
@@ -388,6 +390,7 @@ frappe.views.Workspace = class Workspace {
 
 			let pages =
 				page.public && this.public_pages.length ? this.public_pages : this.private_pages;
+
 			let current_page = pages.filter((p) => p.title == page.name)[0];
 			this.content = current_page && JSON.parse(current_page.content);
 
@@ -397,7 +400,8 @@ frappe.views.Workspace = class Workspace {
 
 			if (this.pages && this.pages[current_page.name]) {
 				this.page_data = this.pages[current_page.name];
-			} else {
+			} 
+			else {
 				await frappe.after_ajax(() => this.get_data(current_page));
 			}
 
@@ -428,6 +432,7 @@ frappe.views.Workspace = class Workspace {
 	}
 
 	prepare_editorjs() {
+
 		if (this.editor) {
 			this.editor.isReady.then(() => {
 				this.editor.configuration.tools.chart.config.page_data = this.page_data;
@@ -439,7 +444,8 @@ frappe.views.Workspace = class Workspace {
 				this.editor.configuration.tools.custom_block.config.page_data = this.page_data;
 				this.editor.render({ blocks: this.content || [] });
 			});
-		} else {
+		} 
+		else {
 			this.initialize_editorjs(this.content);
 		}
 	}
