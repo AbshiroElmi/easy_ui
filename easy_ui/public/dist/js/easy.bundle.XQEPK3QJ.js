@@ -12500,7 +12500,7 @@
       this.body = this.main = this.wrapper.find(".layout-main-section");
       this.container = this.wrapper.find(".page-body");
       console.log("container : ", this.container);
-      this.sidebar = $("#layout-menu").find(".layout-side-section");
+      this.sidebar = $("#layout-menu").find(".menu-inner");
       this.footer = this.wrapper.find(".layout-footer");
       this.indicator = this.wrapper.find(".indicator-pill");
       this.page_actions = this.wrapper.find(".page-actions");
@@ -12540,7 +12540,7 @@
     }
     setup_sidebar_toggle() {
       let sidebar_toggle = $(".page-head").find(".sidebar-toggle-btn");
-      let sidebar_wrapper = $("#layout-menu").find(".layout-side-section1");
+      let sidebar_wrapper = $("#layout-menu").find(".menu-inner");
       if (this.disable_sidebar_toggle || !sidebar_wrapper.length) {
         sidebar_toggle.last().remove();
       } else {
@@ -13142,8 +13142,6 @@
   // ../easy_ui/easy_ui/public/js/frappe/views/workspace/workspaces.js
   var import_editorjs = __toESM(require_editor());
   var import_editorjs_undo = __toESM(require_bundle());
-  var list = [];
-  var root_pages = "";
   frappe.standard_pages["Workspaces"] = function() {
     var wrapper = frappe.container.add_page("Workspaces");
     frappe.ui.make_app_page({
@@ -13170,8 +13168,7 @@
         public: {},
         private: {}
       };
-      this.getAllWorkspaces();
-      this.sidebar_categories = list;
+      this.sidebar_categories = ["My Workspaces", "Public"];
       this.indicator_colors = [
         "green",
         "cyan",
@@ -13241,8 +13238,8 @@
       if (this.sidebar.find(".standard-sidebar-section")[0]) {
         this.sidebar.find(".standard-sidebar-section").remove();
       }
-      this.sidebar_categories.forEach(async (category) => {
-        root_pages = this.public_pages.filter(
+      this.sidebar_categories.forEach((category) => {
+        let root_pages = this.public_pages.filter(
           (page) => page.parent_page == "" || page.parent_page == null
         );
         if (category != "Public") {
@@ -13252,44 +13249,11 @@
         }
         root_pages = root_pages.uniqBy((d) => d.title);
         this.build_sidebar_section(category, root_pages);
-        if (category == "Pulic") {
-          alert("hello world");
-        }
       });
       this.sidebar.find(".selected").length && !frappe.dom.is_element_in_viewport(this.sidebar.find(".selected")) && this.sidebar.find(".selected")[0].scrollIntoView();
       this.remove_sidebar_skeleton();
     }
-    async getworkspace_child(category) {
-      await frappe.call({
-        method: "frappe.client.get_list",
-        args: {
-          doctype: "Workspace",
-          filters: { "parent_page": category },
-          fields: ["*"]
-        },
-        callback: function(response) {
-          root_pages = response.message;
-        }
-      });
-    }
-    async getAllWorkspaces() {
-      await frappe.call({
-        method: "frappe.client.get_list",
-        args: {
-          doctype: "Workspace",
-          filters: { "parent_page": ["!=", ""] },
-          fields: ["*"]
-        },
-        callback: function(response) {
-          for (let i in response.message) {
-            if (!list.includes(response.message[i]["parent_page"])) {
-              list.push(response.message[i]["parent_page"]);
-            }
-          }
-        }
-      });
-    }
-    build_sidebar_section(title, root_pages2) {
+    build_sidebar_section(title, root_pages) {
       let sidebar_section = $(
         `       <li class="menu-item active open"></li>
 			
@@ -13300,7 +13264,7 @@
 		<a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons ti ti-smart-home"></i>
           <div data-i18n="${title}">${title}</div>
-          <div class="badge bg-primary rounded-pill ms-auto">${root_pages2.length}</div>
+          <div class="badge bg-primary rounded-pill ms-auto">${root_pages.length}</div>
         </a>
 		<ul class="menu-sub">
 		
@@ -13315,14 +13279,14 @@
         "aria-expanded": "true"
       });
       let $menuSub = $title.find(".menu-sub");
-      for (let key in root_pages2) {
-        if (root_pages2.hasOwnProperty(key)) {
-          let item = root_pages2[key];
+      for (let key in root_pages) {
+        if (root_pages.hasOwnProperty(key)) {
+          let item = root_pages[key];
           let $li = this.sidebar_item_container(item);
           $menuSub.append($li);
         }
       }
-      this.prepare_sidebar(root_pages2, sidebar_section, this.sidebar);
+      this.prepare_sidebar(root_pages, sidebar_section, this.sidebar);
       $title.on("click", (e) => {
         const $e = $(e.target);
         const href = $e.find("span use").attr("href");
@@ -13332,7 +13296,7 @@
         $e.parent().find(".menu-link menu-toggle").toggleClass("hidden");
         $e.attr("aria-expanded", String(!isCollapsed));
       });
-      if (Object.keys(root_pages2).length === 0) {
+      if (Object.keys(root_pages).length === 0) {
         sidebar_section.addClass("hidden");
       }
       $(".item-anchor").on("click", () => {
@@ -14505,4 +14469,4 @@
   };
 })();
 /*! For license information please see editor.js.LICENSE.txt */
-//# sourceMappingURL=easy.bundle.MC7WZMNU.js.map
+//# sourceMappingURL=easy.bundle.XQEPK3QJ.js.map

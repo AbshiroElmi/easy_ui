@@ -1,7 +1,5 @@
 import EditorJS from "@editorjs/editorjs";
 import Undo from "editorjs-undo";
-let list=[]
-let root_pages=""
 frappe.standard_pages["Workspaces"] = function () {
 	var wrapper = frappe.container.add_page("Workspaces");
 
@@ -17,7 +15,7 @@ frappe.standard_pages["Workspaces"] = function () {
 	});
 };
 
-frappe.views.Workspace =  class  Workspace {
+frappe.views.Workspace = class Workspace {
 	constructor(wrapper) {
 		this.wrapper = $(wrapper);
 		this.page = wrapper.page;
@@ -31,10 +29,7 @@ frappe.views.Workspace =  class  Workspace {
 			public: {},
 			private: {},
 		};
-	
-		this.getAllWorkspaces()
-		this.sidebar_categories = list;
-		
+		this.sidebar_categories = ["My Workspaces", "Public"];
 		this.indicator_colors = [
 			"green",
 			"cyan",
@@ -118,28 +113,18 @@ frappe.views.Workspace =  class  Workspace {
 		if (this.sidebar.find(".standard-sidebar-section")[0]) {
 			this.sidebar.find(".standard-sidebar-section").remove();
 		}
-		this.sidebar_categories.forEach(async (category) => {
 
-			 root_pages = this.public_pages.filter(
+		this.sidebar_categories.forEach((category) => {
+			let root_pages = this.public_pages.filter(
 				(page) => page.parent_page == "" || page.parent_page == null
 			);
 			if (category != "Public") {
-		
-				
 				root_pages = this.private_pages.filter(
 					(page) => page.parent_page == "" || page.parent_page == null
 				);
-			
-
 			}
 			root_pages = root_pages.uniqBy((d) => d.title);
-
 			this.build_sidebar_section(category, root_pages);
-
-
-			if(category=="Pulic"){
-				alert("hello world")
-			}
 		});
 
 		// Scroll sidebar to selected page if it is not in viewport.
@@ -149,46 +134,8 @@ frappe.views.Workspace =  class  Workspace {
 
 		this.remove_sidebar_skeleton();
 	}
-	async getworkspace_child(category){
-		// Make an AJAX request to the Frappe API
-		await frappe.call({
-			method: "frappe.client.get_list",
-			args: {
-			doctype: "Workspace",
-			filters: { "parent_page": category},
-			fields: ["*"]
-			},
-			callback: function(response) {
-			 root_pages=response.message
-			}
-		  });
-		
-	}
-
-	async getAllWorkspaces(){
-		// Make an AJAX request to the Frappe API
-		await frappe.call({
-			method: "frappe.client.get_list",
-			args: {
-			doctype: "Workspace",
-			filters: { "parent_page": ["!=", ""] },
-			fields: ["*"]
-			},
-			callback: function(response) {
-				for (let i in response.message){
-					if(!list.includes(response.message[i]['parent_page'])){
-						list.push(response.message[i]['parent_page'])
-
-					}
-				}
-			}
-		  });
-		
-	}
-
 
 	build_sidebar_section(title, root_pages) {
-
 		let sidebar_section = $(
 			`       <li class="menu-item active open"></li>
 			

@@ -123,7 +123,7 @@ frappe.ui.Page = class Page {
 
 		this.container = this.wrapper.find(".page-body");
 		console.log("container : ",this.container);
-		this.sidebar = $("#layout-menu").find(".layout-side-section");
+		this.sidebar = $("#layout-menu").find(".menu-inner");
 		this.footer = this.wrapper.find(".layout-footer");
 		this.indicator = this.wrapper.find(".indicator-pill");
 		
@@ -187,7 +187,7 @@ frappe.ui.Page = class Page {
 	setup_sidebar_toggle() {
 
 		let sidebar_toggle = $(".page-head").find(".sidebar-toggle-btn");
-		let sidebar_wrapper = $("#layout-menu").find(".layout-side-section1");
+		let sidebar_wrapper = $("#layout-menu").find(".menu-inner");
 		if (this.disable_sidebar_toggle || !sidebar_wrapper.length) {
 			sidebar_toggle.last().remove();
 		} 
