@@ -272,7 +272,7 @@ frappe.views.BaseList = class BaseList {
 		this.list_sidebar = new frappe.views.ListSidebar({
 			doctype: this.doctype,
 			stats: this.stats,
-			parent: this.$page.find(".layout-side-section"),
+			parent: this.$page.find(".menu-inner"),
 			page: this.page,
 			list_view: this,
 		});

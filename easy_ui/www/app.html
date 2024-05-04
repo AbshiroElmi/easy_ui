@@ -41,7 +41,10 @@ data-template="vertical-menu-template">
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar  ">
   <div class="layout-container">
+	{{get_route_page_name}}
+	{% if get_route_page_name != "0" and get_route_page_name != "1" %}
 	<!-- {% include "www/includes/menu.html" %} -->
+	{% endif %}
 	  <!-- Layout container -->
 	  <div class="layout-page">
 		<header></header>
