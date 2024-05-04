@@ -119,22 +119,22 @@ frappe.views.Workspace =  class  Workspace {
 			this.sidebar.find(".standard-sidebar-section").remove();
 		}
 		this.sidebar_categories.forEach(async (category) => {
-			alert(category)
-			//  root_pages = this.public_pages.filter(
-			// 	(page) => page.parent_page == "" || page.parent_page == null
-			// );
-			// if (category != "Public") {
-			// 	await this.getworkspace_child(category)
+
+			 root_pages = this.public_pages.filter(
+				(page) => page.parent_page == "" || page.parent_page == null
+			);
+			if (category != "Public") {
+		
 				
-			// 	// root_pages = this.private_pages.filter(
-			// 	// 	(page) => page.parent_page == "" || page.parent_page == null
-			// 	// );
+				root_pages = this.private_pages.filter(
+					(page) => page.parent_page == "" || page.parent_page == null
+				);
 			
 
-			// }
-			// root_pages = root_pages.uniqBy((d) => d.title);
+			}
+			root_pages = root_pages.uniqBy((d) => d.title);
 
-			// this.build_sidebar_section(category, root_pages);
+			this.build_sidebar_section(category, root_pages);
 
 
 			if(category=="Pulic"){
