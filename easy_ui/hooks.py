@@ -1,9 +1,11 @@
 app_name = "easy_ui"
-app_title = "Easy Ui"
+app_title = "EasyTouch"
 app_publisher = "abshiro"
 app_description = "for_ui"
 app_email = "abshiro@yooltech.com"
 app_license = "mit"
+
+app_path = "/assets/easy_ui/"
 # required_apps = []
 
 # Includes in <head>
@@ -11,7 +13,8 @@ app_license = "mit"
 
 # include js, css files in header of desk.html
 app_include_js =  ["easy.bundle.js"]
-app_include_css = "easy.bundle.css"
+app_include_head_js =  ["header.bundle.js"]
+app_include_css = ["easy.bundle.css"]
 
 # app_include_css = "/assets/easy_ui/css/easy_ui.css"
 # app_include_js = "/assets/easy_ui/js/easy_ui.js"

@@ -1,0 +1,130 @@
+<html lang="en" 
+data-theme-mode="{{ desk_theme.lower() }}"
+data-theme="{{ desk_theme.lower() }}" 
+dir={{ layout_direction }} lang="{{ lang }}"
+data-assets-path="{{ app_path }}"
+class="light-style layout-navbar-fixed layout-menu-fixed layout-compact " 
+data-template="vertical-menu-template">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>{{ app_name }}</title>
+
+    <meta name="author" content="">
+
+    <!-- Favicon -->
+	<link rel="shortcut icon"
+			href="{{ favicon or "/assets/frappe/images/frappe-favicon.svg" }}" type="image/x-icon">
+		<link rel="icon"
+			href="{{ favicon or "/assets/frappe/images/frappe-favicon.svg" }}" type="image/x-icon">
+
+	 <!-- Fonts -->
+	 <link rel="preconnect" href="https://fonts.googleapis.com">
+	 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&ampdisplay=swap" rel="stylesheet">
+
+	{% for include in include_css -%}
+		{{ include_style(include) }}
+	{%- endfor -%}
+
+	{% include "www/includes/style.html" %}
+
+
+</head>
+
+<body>
+
+	{% include "templates/includes/splash_screen.html" %}
+	
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar  ">
+  <div class="layout-container">
+	{{get_route_page_name}}
+	{% if get_route_page_name != "0" and get_route_page_name != "1" %}
+	<!-- {% include "www/includes/menu.html" %} -->
+	{% endif %}
+	  <!-- Layout container -->
+	  <div class="layout-page">
+		<header></header>
+		<div class="content-wrapper">
+
+			<!-- Content -->
+			  <div id="body" class="container-xxl flex-grow-1 container-p-y">
+
+			  </div>
+	</div>
+		
+		<footer class="content-footer footer bg-footer-theme">
+			<div class="container-xxl">
+			  <div class="footer-container d-flex align-items-center justify-content-between py-2 flex-md-row flex-column">
+				<div>
+				  © <script>
+				  document.write(new Date().getFullYear())
+		  
+				  </script>, made with ❤️ in <a href="https://yooltech.com/" target="_blank" class="footer-link text-primary fw-medium">Hamar</a>
+				</div>
+				<div class="d-none d-lg-inline-block">
+				  
+				  <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank">License</a>
+				  <a href="https://1.envato.market/pixinvent_portfolio" target="_blank" class="footer-link me-4">More Themes</a>
+				  
+				  <a href="https://demos.pixinvent.com/vuexy-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
+				  
+				  
+				  <a href="https://pixinvent.ticksy.com/" target="_blank" class="footer-link d-none d-sm-inline-block">Support</a>
+				  
+				</div>
+			  </div>
+			</div>
+		  </footer>
+
+	
+		<div id="all-symbols" style="display:none"></div>
+		<div id="build-events-overlay"></div>
+		</div>
+
+</div>
+</div>
+
+
+<script type="text/javascript">
+	window._version_number = "{{ build_version }}";
+	// browser support
+	window.app = true;
+	window.dev_server = {{ dev_server }};
+
+	if (!window.frappe) window.frappe = {};
+
+	frappe.boot = JSON.parse({{ boot }});
+	frappe._messages = frappe.boot["__messages"];
+	frappe.csrf_token = "{{ csrf_token }}";
+
+
+	{%- for path in include_icons -%}
+	fetch(`/assets/{{ path }}?v=${window._version_number}`, { credentials: "same-origin" })
+		.then((r) => r.text())
+		.then((svg) => {
+			let svg_container = document.getElementById("all-symbols");
+			svg_container.insertAdjacentHTML("beforeend", svg);
+		});
+	{%- endfor -%}
+</script>
+
+
+	{% for include in include_js %}
+	{{ include_script(include) }}
+	{% endfor %}
+
+	{% include "templates/includes/app_analytics/google_analytics.html" %}
+
+		{% for sound in (sounds or []) %}
+		<audio preload="auto" id="sound-{{ sound.name }}" volume={{ sound.volume or 1 }}>
+			<source src="{{ sound.src }}"></source>
+		</audio>
+		{% endfor %}
+
+		{% include "www/includes/script.html" %}
+	</body>
+</html>
