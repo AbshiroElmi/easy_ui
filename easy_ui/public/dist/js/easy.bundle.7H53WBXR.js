@@ -12081,7 +12081,7 @@
     }
   };
 
-  // frappe-html:/home/abshiro/Documents/frappe-bench/apps/easy_ui/easy_ui/public/js/frappe/ui/toolbar/navbar.html
+  // frappe-html:/home/liban/frappe-bench/apps/easy_ui/easy_ui/public/js/frappe/ui/toolbar/navbar.html
   frappe.templates["navbar"] = `
 
 
@@ -12461,7 +12461,7 @@
 <!-- / Navbar -->
 `;
 
-  // frappe-html:/home/abshiro/Documents/frappe-bench/apps/easy_ui/easy_ui/public/js/frappe/ui/page.html
+  // frappe-html:/home/liban/frappe-bench/apps/easy_ui/easy_ui/public/js/frappe/ui/page.html
   frappe.templates["page"] = `<div class="page-head flex">
 	<div class="container">
 		<div class="row flex align-center page-head-content justify-between">
@@ -14617,4 +14617,4 @@
   };
 })();
 /*! For license information please see editor.js.LICENSE.txt */
-//# sourceMappingURL=easy.bundle.SOSQCYRM.js.map
+//# sourceMappingURL=easy.bundle.7H53WBXR.js.map

@@ -15,7 +15,12 @@ from frappe.utils.jinja_globals import is_rtl
 SCRIPT_TAG_PATTERN = re.compile(r"\<script[^<]*\</script\>")
 CLOSING_SCRIPT_TAG_PATTERN = re.compile(r"</script\>")
 
+from frappe import local
 
+def get_route_page_name():
+    route_path = local.request.path
+    page_name = route_path.split("/")[-1] if route_path else None
+    return page_name
 def get_context(context):
 	if frappe.session.user == "Guest":
 		frappe.throw(_("Log in to access this page."), frappe.PermissionError)
@@ -53,6 +58,7 @@ def get_context(context):
 
 	context.update(
 		{
+			"get_route_page_name":get_route_page_name(),
 			"no_cache": 1,
 			"app_path": hooks.get("app_path", '')[0],
 			"build_version": frappe.utils.get_build_version(),
